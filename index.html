@@ -15,10 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="lib/css/custom.css">
 
     <!-- Printing and PDF exports -->
     <script>
@@ -40,7 +43,278 @@
 
       <div class="slides">
 
+        <section id="title">
+          <h1>Ember CLI</h1>
+          <h3>The Grand Tour</h3>
+          <p>
+            <a href="http://davidlormor.com">David Lormor</a>
+             /
+            <a href="http://twitter.com/davidlormor">@davidlormor</a>
+             /
+             <a href="mailto:davidlormor@gmail.com">davidlormor@gmail.com</a>
+          </p>
 
+					<aside class="notes">
+						<ul>
+							<li>Web developer at AIDT (with Doug Hall, and actually got the job through an email sent out to this group)</li>
+							<li>First learned development back in high school, and after a long hiatus I'm back in it</li>
+							<li>Work primarily in Rails & Ember (yes, I'm a framework guy, but when you're working with enterprise-type data it really does make sense)</li>
+							<li>You can find me all over the web by my name (I should probably be more concerned with privacy)</li>
+						</ul>
+					</aside>
+        </section>
+
+        <section id="ember-intro">
+          <img src="lib/img/ember-logo.png" alt="Ember Logo" class="ember-logo">
+          <blockquote cite="http://emberjs.com">
+						<p>
+							A "framework" for building <strong>ambitious</strong> web applications
+						</p>
+						<footer>
+							-<cite>emberjs.com</cite>
+						</footer>
+					</blockquote>
+          <ul>
+            <li>Template data-binding</li>
+            <li>Components</li>
+            <li>Data Models</li>
+            <li>Routing</li>
+          </ul>
+
+					<aside class="notes">
+						<p>Ember is mostly about managing the state and flow of data in the browser in an organized and future-proof fashion</p>
+						<p>The listed Ember conventions aim to give you a single source of truth for your data (i.e. no more spaghetti of AJAX calls, event handlers,etc.)</p>
+						<p>There is a lot of nuance to some of these concepts that I don't have time to cover, but what this mean is:</p>
+
+						<ul>
+							<li>Data-binding: your HTML always stays in sync with underlying data/state changes</li>
+							<li>Components: create your own (reusable) app-specific tags with custom behavior</li>
+							<li>Models: handle the data from your servers in an organized fashion</li>
+							<li>Routing: don't break the web/always know the state of your app</li>
+						</ul>
+						<ul>
+							<li>Who has used Ember?</li>
+							<li>Who found it painful? Why?</li>
+							<li>Did you use Ember CLI/Ember App Kit?</li>
+							<li>When? Did you like it? What version?</li>
+						</ul>
+            <p>
+              It's well-known among folks who have tried to use Ember, that the docs can be hard to penetrate, and Ember CLI seems to follow those conventions.
+              Despite that, they are extremely useful tools, and my goal for this talk will be to try and clarify how to get up and running with Ember CLI, and understand some of the tooling that it provides.
+            </p>
+					</aside>
+        </section>
+
+				<section id="ember-cli-intro">
+					<h1>Ember CLI</h1>
+					<p>Picking up where Ember falls short...</p>
+					<ul>
+						<li>App structure</li>
+						<li>Generators</li>
+						<li>Testing</li>
+						<li>Environment management</li>
+						<li>Dependency management</li>
+						<li>Depolyment/build tools</li>
+						<li>Reusable code</li>
+						<li>and much, much more...</li>
+					</ul>
+					<p>...to make your Ember app more manageable</p>
+
+					<aside class="notes">
+						<p>Despite all that Ember provides you, it's ultimately less a framework (in the Rails sense) and more a very large library of conventions to assist you in building an app</p>
+						<p>Production-grade apps require extensive tooling to keep development fast, efficient, and organized</p>
+						<p>Ember CLI aims to turn Ember from a "framework-like" library into a "true" framework</p>
+					</aside>
+				</section>
+
+        <section id="installation">
+          <h2>Installation</h2>
+          <p>
+            <code>npm install -g ember-cli</code>
+          </p>
+
+          <aside class="notes">
+            <p>It's easy to get started. Just one command as long as you have Node installed.</p>
+          </aside>
+        </section>
+
+				<section>
+					<section id="structure">
+						<h2>Structure</h2>
+						<ul>
+							<li>MVC or Pods</li>
+							<li>Convention over configuration</li>
+							<li>Generators</li>
+						</ul>
+
+						<aside class="notes">
+							<p>MVC</p>
+							<ul>
+							  <li>Rails-style folder structure</li>
+							</ul>
+							<p>Pods</p>
+							<ul>
+							  <li>Domain-driven style</li>
+							  <li>All elements for a particular module located together</li>
+							</ul>
+              <p>(Convention notes on next slide)</p>
+						</aside>
+					</section>
+
+					<section id="conventions">
+						<h3>Conventions</h3>
+						<p>Dasherized &amp; lowercased filenames</p>
+						<p>Camelcase JS &amp; JSON</p>
+						<p>Test files suffixed with <code>-test.js</code></p>
+
+            <aside class="notes">
+              <p>By following these conventions the Resolver will automatically concat all your files to properly build your app and tests</p>
+            </aside>
+					</section>
+
+					<section id="generators">
+						<h2>Generators</h2>
+						<p><code>ember g(enerate) model/controller/route/etc.</code></p>
+            <p><code>ember d(estroy) model/controller/route/etc.</code></p>
+
+            <aside class="notes">
+              <p>Should look familiar to anyone who's ever developed a Rails app</p>
+              <p>Just like Rails will generate necessary files, tests, and code for the generated entity to work</p>
+            </aside>
+					</section>
+				</section>
+
+				<section id="testing">
+					<h2>Testing</h2>
+					<p>Ember QUnit (default)</p>
+          <p>Adapters allow other testing suites (Mocha, Jasmine, etc.)</p>
+          <p><code>http://localhost:4200/tests</code></p>
+          <p>(Runs on PhantomJS by default)</p>
+
+					<aside class="notes">
+            <p>Adapters hook into Ember and Ember CLI to play nice with Ember's conventions and generators</p>
+						<p>If you're going to have testing...you probably need environments...(segue)</p>
+					</aside>
+				</section>
+
+				<section id="app-management">
+          <section>
+            <h2>App Management</h2>
+            <ul>
+              <li>Environments</li>
+              <li>Dependency</li>
+              <li>Deployment</li>
+            </ul>
+          </section>
+					<section id="environments">
+						<h2>Environments</h2>
+            <p>Allows you to configure your app for development, testing, production, etc.</p>
+						<aside class="notes">
+              <p>Allows you to do things like point the development environment at a different server than production</p>
+						</aside>
+					</section>
+
+					<section id="dependencies">
+						<h2>Dependencies</h2>
+            <img src="lib/img/npm-logo.png" alt="npm logo"><br>
+            <img src="lib/img/bower-logo.png" alt="bower logo" height="195" width="195">
+
+						<aside class="notes">
+              <ul>
+                <li>npm for code</li>
+                <li>bower for frontend</li>
+                <li>broccoli for asset pipelining</li>
+              </ul>
+						</aside>
+					</section>
+
+					<section id="deployment">
+						<h2>Deployment</h2>
+            <p>Asset compilation via broccoli.js</p>
+            <img src="lib/img/broccoli-logo.png" alt="broccoli logo" height="195" width="195">
+            <p><code>ember serve</code></p>
+						<p><code>ember build</code></p>
+
+						<aside class="notes">
+              <p>Broccoli compiles all of your dependencies and app files into a nice neat package for the browser to consume</p>
+              <p>ember serve: build and serve your app, provides live reload on file changes</p>
+              <p>ember build: builds your app for deployment on the platform/server of your choosing</p>
+						</aside>
+					</section>
+				</section>
+
+				<section id="shared-code">
+					<section>
+						<h2>Shared Code</h2>
+						<p>Ember Addons</p>
+						<p>Blueprints</p>
+					</section>
+
+					<section id="addons">
+						<h3>Ember Addons</h3>
+						<p>An easy way to share common code between Ember applications for</p>
+						<ul>
+							<li>Performing operations on the parent app's EmberApp object</li>
+							<li>Adding preprocessors (Coffeescript, Sass, etc.)</li>
+							<li>Providing a custom application tree</li>
+							<li>Custom express server middlewares</li>
+							<li>Custom/extra blueprints</li>
+							<li>Adding content</li>
+						</ul>
+            <p>Create an addon:</p>
+            <p><code>ember addon addon-name</code></p>
+
+            <aside class="notes">
+
+            </aside>
+					</section>
+
+					<section id="blueprints">
+						<h3>Blueprints</h3>
+            <p>Allow you to define custom generators</p>
+
+            <aside class="notes">
+              <p>Custom generators can be used for existing ember entities or for custom addons you've built</p>
+            </aside>
+					</section>
+				</section>
+
+        <section id="intangibles">
+          <h2>Intangibles</h2>
+          <ul>
+            <li>Ease of adoption</li>
+            <li>Productivity</li>
+            <li>Encourage an ecosystem around Ember</li>
+          </ul>
+
+          <aside class="notes">
+            <p>I've found my own understanding of Ember increased dramatically after moving from Ember-Rails to Ember CLI</p>
+            <p>In doing so I can be much more productive, and I find myself thinking more in terms of code reuse/componentization</p>
+            <p>And by thinking in terms of code reuse, I'm more inclined to open-source/share with other devs (if it works in my project, perhaps someone else might find it useful)</p>
+            <p>Ultimately, that's how a thriving ecosystem/community is started</p>
+          </aside>
+        </section>
+
+				<section>
+				  <h2>Standardization</h2>
+				  <h4><a href="https://github.com/emberjs/rfcs/blob/ember-2.0-rfc/active/0000-the-road-to-ember-2-0.md">The Road to Ember 2.0</a></h4>
+				  <ul>
+				    <li><q>...a single tool that unifies the community and provides a venue for disseminating great ideas.</q></li>
+				    <li><q>In Ember 2.0, Ember CLI and ES6 modules will become first-class parts of the Ember experience.</q></li>
+				    <li><q>You should being moving your app to Ember CLI as soon as possible.</q></li>
+				  </ul>
+
+          <aside class="notes">
+            <p>In short, Ember CLI and Ember are becoming synonymous. Although, you'll still be able to use Ember by just including it in your HTML, Ember CLI will be the standard for building Ember apps going forward. I would go so far as to speculate that Ember-CLI will just be Ember, eventually.</p>
+            <p>These tools will only continue to become more important as Ember seeks to become an end-to-end solution for app development (per recent interviews with Yehuda and Tom)</p>
+            <p>Ember CLI relies heavily on the ES6 module syntax, which seeks to reconcile the differences between the two major module syntaxes (AMD & Common)</p>
+          </aside>
+				</section>
+
+        <section id="questions">
+          <h1>Questions?</h1>
+          <p><a href="http://davidlormor.com">David Lormor</a> / <a href="http://twitter.com/davidlormor">@davidlormor</a> / <a href="mailto:davidlormor@gmail.com">davidlormor@gmail.com</a></p>
+        </section>
 
       </div>
 
